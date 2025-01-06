@@ -4,13 +4,36 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", serif;
+}
+
+#main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#cursor {
+  height: 20px;
+  width: 20px;
+  mix-blend-mode: difference;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  transition: all linear 0.2;
+}
+
+h1 {
+  font-size: 10vw;
+  font-weight: 500;
+  cursor: pointer;
 }
 a {
   text-decoration: none;
 }
 .header {
-  position: fixed;
+  /* position: fixed; */
   height: 80px;
   width: 100%;
   z-index: 100;
@@ -72,10 +95,15 @@ a {
 .button:active {
   transform: scale(0.98);
 }
-
+.fileupl {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* Home */
 .home {
-  position: relative;
+  /* position: relative; */
   height: 100vh;
   width: 100%;
   background-color: #090390;
@@ -221,4 +249,11 @@ a {
   font-size: 12px;
   text-align: center;
   margin-top: 15px;
+}
+
+.filebtn button {
+  width: 20px;
+  height: 20px;
+  color: #0449f8;
+  background-color: #fff;
 }

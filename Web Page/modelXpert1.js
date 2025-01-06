@@ -30,3 +30,28 @@ loginBtn.addEventListener("click", (e) => {
     e.preventDefault();
     formContainer.classList.remove("active");
 });
+
+var main = document.querySelector("#main")
+var cursor = document.querySelector("#cursor")
+var h1 = document.querySelector("h1")
+
+
+main.addEventListener("mousemove", function (dets) {
+    gsap.to(cursor, {
+        left: dets.x + "px",
+        top: dets.y + "px",
+    })
+})
+
+h1.addEventListener("mouseenter", function () {
+    gsap.to(cursor, {
+        scale: 4
+    })
+})
+
+h1.addEventListener("mouseleave", function () {
+    gsap.to(cursor, {
+        scale: 1
+
+    })
+})
