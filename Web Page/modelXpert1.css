@@ -78,8 +78,7 @@ a {
   position: relative;
   height: 100vh;
   width: 100%;
-  background-image: url("bg1.jpg");
-  background-color: #0b0217;
+  background-color: #090390;
   background-size: cover;
   background-position: center;
 }
@@ -160,7 +159,7 @@ a {
   border-bottom: 1.5px solid #aaaaaa;
 }
 .input_box input:focus {
-  border-color: #7d2ae8;
+  border-color: #0449f8;
 }
 .input_box i {
   position: absolute;
@@ -175,7 +174,7 @@ a {
 }
 .input_box input:focus ~ i.email,
 .input_box input:focus ~ i.password {
-  color: #7d2ae8;
+  color: #0449f8;
 }
 .input_box i.pw_hide {
   right: 0;
@@ -189,8 +188,9 @@ a {
   justify-content: space-between;
 }
 .form_container a {
-  color: #7d2ae8;
+  color: #0449f8;
   font-size: 12px;
+  font-weight: 600;
 }
 .form_container a:hover {
   text-decoration: underline;
@@ -201,20 +201,21 @@ a {
   white-space: nowrap;
 }
 .checkbox input {
-  accent-color: #7d2ae8;
+  accent-color: #0449f8;
 }
 .checkbox label {
   font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
   user-select: none;
   color: #0b0217;
 }
 .form_container .button {
-  background: #7d2ae8;
+  background: #0449f8;
   margin-top: 30px;
   width: 100%;
   padding: 10px 0;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .login_signup {
   font-size: 12px;
