@@ -1,2 +1,5 @@
 .ipynb_checkpoints/
+*.log
+npm-debug.log*
+/Web\ Page/node_modules
 
