@@ -13,9 +13,7 @@
   <body>
     <header class="header">
       <nav class="nav">
-        <a href="#" class="nav_logo">
-          <img src="Resources\modelxpert logo.png" alt=""
-        /></a>
+        <a href="#" class="nav_logo"> <img src="images\logo.png" alt="" /></a>
         <ul class="nav_items">
           <li class="nav_item">
             <a href="#" class="nav_link">Home</a>
@@ -47,7 +45,56 @@
               onchange="myFunction()"
             />
             <div id="file-info" class="file-info"></div>
-            <p id="demo"></p>
+            <!-- <p id="demo"></p> -->
+          </div>
+        </div>
+        <div class="auto-manual-feature">
+          <div class="preview-images">
+            <img
+              src="images\WhatsApp Image 2025-01-09 at 01.59.36_39acc749.jpg"
+              alt="Preview 2"
+            />
+            <img
+              src="images\WhatsApp Image 2025-01-09 at 01.59.36_39acc74.jpg"
+              alt="Preview 1"
+            />
+          </div>
+          <div class="data-preprocess">
+            <div class="preprocess-section">
+              <h3>Data preprocess</h3>
+              <div class="radio-group">
+                <label>
+                  <input
+                    type="radio"
+                    name="preprocess"
+                    value="automatic"
+                    checked
+                  />
+                  <p>
+                    Automatic<br />
+                    <span class="radio-p"
+                      >We'll take care of the preprocessing steps for you.</span
+                    >
+                  </p>
+                </label>
+                <label>
+                  <input type="radio" name="preprocess" value="manual" />
+                  <p>
+                    Manual<br />
+                    <span class="radio-p">
+                      You'll be able to choose which steps to take.</span
+                    >
+                  </p>
+                </label>
+              </div>
+            </div>
+            <div class="data-summary">
+              <h3 class="data-sum-head">Data preprocess</h3>
+              <p><strong>Rows:</strong> 1,000</p>
+              <p><strong>Columns:</strong> 10</p>
+              <p><strong>Missing Values:</strong> 50</p>
+            </div>
+            <button class="train-btn">Train Model</button>
           </div>
         </div>
       </div>
