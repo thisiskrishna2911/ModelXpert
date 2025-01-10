@@ -16,10 +16,10 @@
         <a href="#" class="nav_logo"> <img src="images\logo.png" alt="" /></a>
         <ul class="nav_items">
           <li class="nav_item">
-            <a href="#" class="nav_link">Home</a>
-            <a href="#" class="nav_link">Services</a>
-            <a href="#" class="nav_link">About Us</a>
-            <a href="#" class="nav_link">Contact</a>
+            <a href="#" class="nav_link different">Home</a>
+            <a href="#" class="nav_link different">Services</a>
+            <a href="#" class="nav_link different">About Us</a>
+            <a href="#" class="nav_link different">Contact</a>
           </li>
         </ul>
         <button class="button" id="form-open">Login</button>
@@ -30,8 +30,11 @@
     <section class="home">
       <div class="centerpart">
         <div id="main">
-          <!-- <div id="cursor"></div> -->
           <h1 class="mx">ModelXpert</h1>
+        </div>
+        <div class="heading-datatrain">
+          <h1>Train AI Models Effortlessly</h1>
+          <h5 class="upl-data-head">Upload Your Data</h5>
         </div>
         <div class="fileoption">
           <div id="drop-zone">
@@ -45,19 +48,57 @@
               onchange="myFunction()"
             />
             <div id="file-info" class="file-info"></div>
-            <!-- <p id="demo"></p> -->
           </div>
         </div>
         <div class="auto-manual-feature">
-          <div class="preview-images">
-            <img
-              src="images\WhatsApp Image 2025-01-09 at 01.59.36_39acc749.jpg"
-              alt="Preview 2"
-            />
-            <img
-              src="images\WhatsApp Image 2025-01-09 at 01.59.36_39acc74.jpg"
-              alt="Preview 1"
-            />
+          <div class="data-table">
+            <table style="width: 80%">
+              <tr>
+                <th>Company</th>
+                <th>Contact</th>
+                <th>Country</th>
+              </tr>
+              <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+              </tr>
+              <tr>
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+              </tr>
+              <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+              </tr>
+              <tr>
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+              </tr>
+              <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+              </tr>
+              <tr>
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+              </tr>
+              <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+              </tr>
+              <tr>
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+              </tr>
+            </table>
           </div>
           <div class="data-preprocess">
             <div class="preprocess-section">
@@ -69,23 +110,60 @@
                     name="preprocess"
                     value="automatic"
                     checked
+                    onclick="toggleManualSection(false)"
                   />
                   <p>
                     Automatic<br />
-                    <span class="radio-p"
-                      >We'll take care of the preprocessing steps for you.</span
-                    >
+                    <span class="radio-p">
+                      We'll take care of the preprocessing steps for you.
+                    </span>
                   </p>
                 </label>
                 <label>
-                  <input type="radio" name="preprocess" value="manual" />
+                  <input
+                    type="radio"
+                    name="preprocess"
+                    value="manual"
+                    onclick="toggleManualSection(true)"
+                  />
                   <p>
                     Manual<br />
                     <span class="radio-p">
-                      You'll be able to choose which steps to take.</span
-                    >
+                      You'll be able to choose which steps to take.
+                    </span>
                   </p>
                 </label>
+              </div>
+
+              <!-- Manual Section -->
+              <div id="manual-section" style="display: none; margin-top: 20px">
+                <h4>Select Label and Features</h4>
+                <div>
+                  <label for="label-select">Label:</label>
+                  <select
+                    id="label-select"
+                    onchange="populateFeaturePools()"
+                    required
+                  >
+                    <option value="" disabled selected>Select a label</option>
+                  </select>
+                </div>
+                <div style="display: flex; gap: 20px; margin-top: 20px">
+                  <!-- All Features Pool -->
+                  <div>
+                    <h5>All Features</h5>
+                    <ul id="all-features-pool" class="feature-pool">
+                      <!-- Dynamically populated -->
+                    </ul>
+                  </div>
+                  <!-- Selected Features Pool -->
+                  <div>
+                    <h5>Selected Features</h5>
+                    <ul id="selected-features-pool" class="feature-pool">
+                      <!-- Dynamically populated -->
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="data-summary">
@@ -101,7 +179,7 @@
 
       <div class="form_container">
         <i class="uil uil-times form_close"></i>
-        <!-- Login From -->
+        <!-- Login From  -->
         <div class="form login_form">
           <form action="#">
             <h2>Login</h2>
