@@ -4,6 +4,8 @@ import cors from 'cors';
 import path from 'path';
 import ejsMate from "ejs-mate";
 import { fileURLToPath } from 'url';
+// import fs from 'fs';
+import { open } from 'node:fs/promises';
 // import requ
 const app = express();
 const upload = multer({ dest: 'uploads/' }); // Folder to store uploaded files
@@ -20,14 +22,25 @@ app.engine("ejs", ejsMate);
 app.use(express.urlencoded({ extended: true }));
 
 // Render the upload page
-app.get('/', (req, res) => {
-    res.render('index.ejs', { title: 'ModelXpert File Upload' });
+app.get('/', async(req, res) => {
+    // console.log(__dirname+"/uploads/f1.txt")
+    // let data = await fs.readFile(__dirname+"/uploads/f1.txt")
+    const file = await open(__dirname+"/uploads/f1.txt");
+
+  for await (const line of file.readLines()) {
+    // console.log(line);
+    let data_var =data_var + line;
+  }
+  console.log(data_var)
+    // console.log(data.toString())
+    res.render('index.ejs', { title: 'ModelXpert File Upload' , _data: data_var});
+
 });
 
 // File upload endpoint
 app.post('/upload', upload.single('file'), (req, res) => {
     const file = req.file;
-
+console.log(file)
     // Validate file type
     const allowedFormats = ['text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
     if (!allowedFormats.includes(file.mimetype)) {
