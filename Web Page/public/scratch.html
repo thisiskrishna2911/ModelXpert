@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="modelXpert1.css" />
+    <style>
+        th, td {
+            padding: 15px;
+            border: none;
+        }
+        .tableContainer {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 40px;
+        }
+        .tableContainer table {
+            border: none;
+        }
+        thead {
+            background-color: black;
+            color: white;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #eeeeee;
+        }
+        #drop-zone {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin: 20px auto;
+            width: 50%;
+            transition: background-color 0.3s ease;
+        }
+        #drop-zone:hover {
+            background-color: #f9f9f9;
+        }
+        .file-info {
+            margin-top: 10px;
+            text-align: center;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav">
+        <a href="#" class="nav_logo">
+            <img src="/images/logo.png" alt="" />
+        </a>
+        <ul class="nav_items">
+            <li class="nav_item">
+                <a href="#" class="nav_link">Home</a>
+                <a href="#" class="nav_link">Services</a>
+                <a href="#" class="nav_link">About Us</a>
+                <a href="#" class="nav_link">Contact</a>
+            </li>
+        </ul>
+        <button class="button" id="form-open">Login</button>
+    </nav>
+</header>
+
+<!-- Home -->
+<section class="home">
+    <div class="centerpart">
+        <div id="main">
+            <h1 class="mx">ModelXpert</h1>
+        </div>
+        <div class="fileoption">
+            <div id="drop-zone">
+                Drag & drop your file here or click to upload.<br />
+                <small>Only CSV and XLSX files are allowed.</small>
+                <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+                    <input
+                            type="file"
+                            id="file-input"
+                            name="file"
+                            multiple
+                            size="50"
+                            style="display: none;"
+                    />
+                </form>
+                <div id="file-info" class="file-info"></div>
+                <p id="demo"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login & Signup Forms -->
+    <div class="form_container">
+        <i class="uil uil-times form_close"></i>
+        <!-- Login Form -->
+        <div class="form login_form">
+            <form action="#">
+                <h2>Login</h2>
+                <div class="input_box">
+                    <input type="email" placeholder="Enter your email" required />
+                    <i class="uil uil-envelope-alt email"></i>
+                </div>
+                <div class="input_box">
+                    <input
+                            type="password"
+                            placeholder="Enter your password"
+                            required
+                    />
+                    <i class="uil uil-lock password"></i>
+                    <i class="uil uil-eye-slash pw_hide"></i>
+                </div>
+                <div class="option_field">
+              <span class="checkbox">
+                <input type="checkbox" id="check" />
+                <label for="check">Remember me</label>
+              </span>
+                    <a href="#" class="forgot_pw">Forgot password?</a>
+                </div>
+                <button class="button">Login Now</button>
+                <div class="login_signup">
+                    Don't have an account? <a href="#" id="signup">Signup</a>
+                </div>
+            </form>
+        </div>
+        <!-- Signup Form -->
+        <div class="form signup_form">
+            <form action="#">
+                <h2>Signup</h2>
+                <div class="input_box">
+                    <input type="email" placeholder="Enter your email" required />
+                    <i class="uil uil-envelope-alt email"></i>
+                </div>
+                <div class="input_box">
+                    <input type="password" placeholder="Create password" required />
+                    <i class="uil uil-lock password"></i>
+                    <i class="uil uil-eye-slash pw_hide"></i>
+                </div>
+                <div class="input_box">
+                    <input type="password" placeholder="Confirm password" required />
+                    <i class="uil uil-lock password"></i>
+                    <i class="uil uil-eye-slash pw_hide"></i>
+                </div>
+                <button class="button">Signup Now</button>
+                <div class="login_signup">
+                    Already have an account? <a href="#" id="login">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <section>
+        <div class="container tableContainer">
+            <div id="data-table" class="table-container">
+                <table id="uploaded-data" border="1">
+                    <thead>
+                    <tr>
+                        <% key_s.forEach((key) => { %>
+                        <th><%= key %></th>
+                        <% }) %>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% if (items && items.length > 0) { %>
+                    <% items.forEach(item => { %>
+                    <tr>
+                        <% key_s.forEach(key => { %>
+                        <td><%= item[key] %></td>
+                        <% }) %>
+                    </tr>
+                    <% }) %>
+                    <% } else { %>
+                    <tr><td colspan="100%">No data available.</td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <label>
+        <input
+                type="radio"
+                name="preprocess"
+                value="manual"
+                onclick="toggleManualSection(true)"
+        />
+        <p>
+            Manual<br />
+            <span class="radio-p">
+            You'll be able to choose which steps to take.
+        </span>
+        </p>
+    </label>
+
+    <!-- Manual Section -->
+    <div id="manual-section" style="display: none; margin-top: 20px">
+        <h4>Select Label and Features</h4>
+        <div>
+            <label for="label-select">Label:</label>
+            <select
+                    id="label-select"
+                    onchange="populateFeaturePools()"
+                    required
+            >
+                <option value="" disabled selected>Select a label</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 20px; margin-top: 20px">
+            <!-- All Features Pool -->
+            <div>
+                <h5>All Features</h5>
+                <ul id="all-features-pool" class="feature-pool">
+                    <!-- Dynamically populated -->
+                </ul>
+            </div>
+            <!-- Selected Features Pool -->
+            <div>
+                <h5>Selected Features</h5>
+                <ul id="selected-features-pool" class="feature-pool">
+                    <!-- Dynamically populated -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+<script src="/js/script.js"></script>
+</body>
+</html>
