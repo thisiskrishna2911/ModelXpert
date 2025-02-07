@@ -13,25 +13,32 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const uploadsDir = path.join(__dirname, "uploads");
+const preprocessedDir = path.join(__dirname, "preprocessed"); // Directory for preprocessed data
 
-// ✅ Ensure uploads directory exists
-async function createUploadsDir() {
+// Ensure uploads and preprocessed directories exist
+async function createDirectories() {
     try {
         await fs.access(uploadsDir);
     } catch (error) {
         await fs.mkdir(uploadsDir);
     }
-}
-createUploadsDir();
 
-// ✅ Configure Multer for file uploads
+    try {
+        await fs.access(preprocessedDir);
+    } catch (error) {
+        await fs.mkdir(preprocessedDir);
+    }
+}
+createDirectories();
+
+// Configure Multer for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, uploadsDir);
     },
     filename: (req, file, cb) => {
         const ext = path.extname(file.originalname);
-        const filename = Date.now() + "_" + file.originalname;
+        const filename = file.originalname;
         cb(null, filename);
     }
 });
@@ -45,7 +52,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.engine("ejs", ejsMate);
 
-// ✅ Function to Read CSV Files
+// Function to Read CSV Files
 async function readCSV(filePath) {
     try {
         const data = await fs.readFile(filePath, "utf-8");
@@ -61,7 +68,7 @@ async function readCSV(filePath) {
     }
 }
 
-// ✅ Function to Read XLSX Files
+// Function to Read XLSX Files
 async function readXLSX(filePath) {
     try {
         const workbook = xlsx.readFile(filePath);
@@ -73,7 +80,7 @@ async function readXLSX(filePath) {
     }
 }
 
-// ✅ Serve Home Page
+// Serve Home Page
 app.get("/", async (req, res) => {
     try {
         res.render("index", { title: "ModelXpert File Upload", items: [], key_s: [] });
@@ -83,7 +90,7 @@ app.get("/", async (req, res) => {
     }
 });
 
-// ✅ File Upload API
+// File Upload API
 app.post("/upload", upload.single("file"), async (req, res) => {
     const file = req.file;
     if (!file) {
@@ -108,7 +115,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
             message: "File uploaded successfully",
             items: parsedData.slice(0, 10),
             key_s,
-            filePath: file.path  // ✅ Send file path for preprocessing
+            filePath: file.path  // Send file path for preprocessing
         });
     } catch (error) {
         console.error("Error processing file:", error);
@@ -116,13 +123,19 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     }
 });
 
-// ✅ Preprocess Data API (Calls Python Script)
+// Preprocess Data API (Calls Python Script)
 app.post("/preprocess", async (req, res) => {
     const { filePath, label, selectedFeatures, fillNull, scaleData, applyPCA, nComponents } = req.body;
-    console.log("this is from python function");
+
     if (!filePath) {
         return res.status(400).json({ message: "No file provided for preprocessing" });
     }
+
+    // if (selectedLabel === undefined) {
+    //     console.error("Label is undefined");
+    //     return res.status(400).json({ message: "Label is required" });
+    // }
+    const outputFilePath = path.join(preprocessedDir, "processed_data.csv"); // Path for processed data
 
     const pythonProcess = spawn("python", [
         "preprocessing_node.py",
@@ -132,7 +145,9 @@ app.post("/preprocess", async (req, res) => {
         fillNull,
         scaleData,
         applyPCA,
-        nComponents || "None"
+        nComponents || "None",
+        outputFilePath, // Pass the output file path to the Python script
+        // filename,
     ]);
 
     let outputData = "";
@@ -148,15 +163,15 @@ app.post("/preprocess", async (req, res) => {
 
     pythonProcess.on("close", (code) => {
         if (code === 0) {
-            res.status(200).json({ message: "Preprocessing successful", processedFile: "processed_data.csv", output: outputData });
+            res.status(200).json({ message: "Preprocessing successful", processedFile: outputFilePath, output: outputData });
         } else {
             res.status(500).json({ message: "Error during preprocessing" });
         }
     });
 });
 
-// ✅ Start Server
-const PORT = process.env.PORT || 8010;
+// Start Server
+const PORT = process.env.PORT || 4300;
 app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

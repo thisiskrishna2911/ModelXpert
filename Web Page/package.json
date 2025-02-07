@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "csv-parse": "^5.6.0",
     "ejs-mate": "^4.0.0",
