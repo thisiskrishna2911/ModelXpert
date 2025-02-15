@@ -15,7 +15,6 @@ scale_data = sys.argv[5]  # Scale data ("true" or "false")
 apply_pca = sys.argv[6]   # Apply PCA ("true" or "false")
 n_components = sys.argv[7]  # Number of PCA components
 
-
 # Check if file exists
 if not os.path.exists(file_path):
     print(f"Error: File not found at {file_path}")
@@ -43,10 +42,10 @@ if missing_features:
 df = df[selected_features + [label]]
 
 # Handle missing values (only in features, not label)
-if fill_null:
+if fill_null.lower() == "mean":
     for col in selected_features:
         df[col].fillna(df[col].mean(), inplace=True)
-else:
+elif fill_null.lower() == "drop":
     df.dropna(subset=selected_features, inplace=True)
 
 # Detect if label is already encoded (numeric)
@@ -57,7 +56,7 @@ if not np.issubdtype(df[label].dtype, np.number):
     joblib.dump(le, "label_encoder.pkl")
 
 # Scale numerical feature columns (excluding label)
-if scale_data:
+if scale_data.lower() == "true":
     scaler = StandardScaler()
     numeric_cols = [col for col in selected_features if df[col].dtype in ["float64", "int64"]]
     df[numeric_cols] = scaler.fit_transform(df[numeric_cols])
@@ -73,7 +72,7 @@ for col in selected_features:
 joblib.dump(label_encoders, "encoder.pkl")
 
 # Apply PCA (only on numerical features, excluding label)
-if apply_pca and n_components.isdigit():
+if apply_pca.lower() == "true" and n_components.isdigit():
     n_components = int(n_components)
     numeric_cols = [col for col in selected_features if df[col].dtype in ["float64", "int64"]]
 
