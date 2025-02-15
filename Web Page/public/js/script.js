@@ -10,9 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     manualSection.style.display = "none"; // Hide manual section initially
 
+
     //modelxpert backgroun effect
     VANTA.NET({
-        el: "#main",
+        el: ".page1",
         mouseControls: true,
         touchControls: true,
         gyroControls: false,
@@ -23,6 +24,60 @@ document.addEventListener("DOMContentLoaded", () => {
         color: 0x4d6cde,
         backgroundColor: 0x20204
     })
+
+    //Animation
+    var tl = gsap.timeline()
+
+    tl.from(".nav_logo, .nav_items .nav_link, .button", {
+        y: -30,
+        opacity: 0,
+        delay: 1,
+        duration: 1.5,
+        stagger: 0.15
+    })
+
+    function breakThetext() {
+        var h1 = document.querySelector(".mx")
+
+        var h1text = h1.textContent
+
+        var splitedtext = h1text.split("");
+        var halfvalue = Math.floor(splitedtext.length / 2)
+
+        var clutter = "";
+
+        splitedtext.forEach(function (elem, idx) {
+            if (idx < halfvalue) {
+                // clutter = clutter + elem
+                clutter += `<span class="a">${elem}</span>`
+            } else {
+                clutter += `<span class="b">${elem}</span>`
+            }
+
+        })
+
+        h1.innerHTML = clutter
+    }
+
+    breakThetext();
+
+    gsap.from(".a", {
+        y: 80,
+        opacity: 0,
+        duration: 1,
+        delay: 1,
+        stagger: 0.15,
+    })
+
+    gsap.from(".b", {
+        y: 80,
+        opacity: 0,
+        duration: 1,
+        delay: 1,
+        stagger: -0.15
+    })
+
+
 
     // ✅ File Upload Drag-and-Drop Events
     dropZone.addEventListener("dragover", (e) => {

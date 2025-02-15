@@ -3,14 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>MODELXPERT®️</title>
+    <link
+      rel="shortcut icon"
+      href="images/apple-touch-icon.png"
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="/css/index.css" />
-    <link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=New+Amsterdam&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <header class="header">
+    <!-- <header class="header">
       <nav class="nav">
         <a href="#" class="nav_logo">
           <img src="/images/logo.png" alt="" />
@@ -21,18 +27,36 @@
             <a href="#" class="nav_link">Services</a>
             <a href="#" class="nav_link">About Us</a>
             <a href="#" class="nav_link">Contact</a>
+            <button class="button" id="form-open">Login</button>
           </li>
         </ul>
-        <button class="button" id="form-open">Login</button>
       </nav>
-    </header>
+    </header> -->
 
     <!-- Home -->
-    <section class="home">
-      <div class="centerpart">
-        <div id="main">
+    <div class="home">
+      <div class="page1">
+        <div class="page1-content">
+          <header class="header">
+            <nav class="nav">
+              <a href="#" class="nav_logo">
+                <img src="/images/logo.png" alt="" />
+              </a>
+              <ul class="nav_items">
+                <li class="nav_item">
+                  <a href="#" class="nav_link">Home</a>
+                  <a href="#" class="nav_link">Services</a>
+                  <a href="#" class="nav_link">About Us</a>
+                  <a href="#" class="nav_link">Contact</a>
+                  <button class="button" id="form-open">Login</button>
+                </li>
+              </ul>
+            </nav>
+          </header>
           <h1 class="mx">ModelXpert</h1>
         </div>
+      </div>
+      <div class="page2">
         <div class="fileoption">
           <div id="drop-zone">
             Drag & drop your file here or click to upload.<br />
@@ -55,178 +79,10 @@
             <div id="file-info" class="file-info"></div>
           </div>
         </div>
-      </div>
-      <div class="container tableContainer">
-        <div id="data-table" class="table-container">
-          <table id="uploaded-data" border="1" style="width:100%">
-            <thead>
-              <tr>
-                <% key_s.forEach((key) => { %>
-                <th><%= key %></th>
-                <% }) %>
-              </tr>
-            </thead>
-            <tbody>
-              <% if (items && items.length > 0) { %> <% items.forEach(item =>
-              { %>
-              <tr>
-                <% key_s.forEach(key => { %>
-                <td><%= item[key] %></td>
-                <% }) %>
-              </tr>
-              <% }) %> <% } else { %>
-              <tr>
-                <td colspan="100%" style="border: none;">No data available.</td>
-              </tr>
-              <% } %>
-            </tbody>
-          </table>
-        </div>
-    </div>
 
-    <!-- ✅ Data Preprocessing Section -->
-    <div class="data-preprocess">
-        <div class="preprocess-section">
-            <h3>Data Preprocessing</h3>
-            
-            <div class="radio-group">
-                <label>
-                    <input type="radio" name="preprocess" value="manual" onclick="toggleManualSection(true)">
-                    <p>Manual<br><span class="radio-p">You'll be able to choose preprocessing steps.</span></p>
-                </label>
-            </div>
-
-            <!-- ✅ Feature Selection Section -->
-            <div id="manual-section" style="display: none; margin-top: 20px;">
-                <h4>Select Label and Features</h4>
-
-                <!-- ✅ Label Selection -->
-                <div>
-                    <label for="label-select">Label:</label>
-                    <select id="label-select" onchange="populateFeaturePools()" required>
-                        <option value="" disabled selected>Select a label</option>
-                    </select>
-                </div>
-
-                <!-- ✅ Features Selection -->
-                <div style="display: flex; gap: 20px; margin-top: 20px;">
-                    <!-- All Features -->
-                    <div>
-                        <h5>All Features</h5>
-                        <ul id="all-features-pool" class="feature-pool"></ul>
-                    </div>
-
-                    <!-- Selected Features -->
-                    <div>
-                        <h5>Selected Features</h5>
-                        <ul id="selected-features-pool" class="feature-pool"></ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-
-    <div class="preprocess-options">
-      <h3>Preprocessing Options</h3>
-
-      <!-- ✅ Fill Missing Values -->
-      <label for="fill-null">Fill Missing Values:</label>
-      <select id="fill-null">
-          <option value="1">Geometric Mean</option>
-          <option value="0">Remove Rows</option>
-      </select>
-
-      <!-- ✅ Scale Data -->
-      <label for="scale-data">Scale Data:</label>
-      <select id="scale-data">
-          <option value="1">Standard Scaling</option>
-          <option value="0">No Scaling</option>
-      </select>
-
-      <!-- ✅ PCA -->
-      <label for="apply-pca">Apply PCA:</label>
-      <select id="apply-pca" onchange="togglePCAComponents()">
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-      </select>
-
-      <!-- ✅ PCA Components Selection -->
-      <div id="pca-components-div" style="display: none;">
-          <label for="n-components">Number of Components:</label>
-          <input type="number" id="n-components" min="1">
-      </div>
-
-      <!-- ✅ Preprocess Button -->
-      <button id="preprocess-btn" onclick="preprocessData()">Preprocess Data</button>
-    </div>
-    
-
-    </section>
-
-      <!-- Login & Signup Forms -->
-      <div class="form_container">
-        <i class="uil uil-times form_close"></i>
-        <!-- Login Form -->
-        <div class="form login_form">
-          <form action="#">
-            <h2>Login</h2>
-            <div class="input_box">
-              <input type="email" placeholder="Enter your email" required />
-              <i class="uil uil-envelope-alt email"></i>
-            </div>
-            <div class="input_box">
-              <input
-                type="password"
-                placeholder="Enter your password"
-                required
-              />
-              <i class="uil uil-lock password"></i>
-              <i class="uil uil-eye-slash pw_hide"></i>
-            </div>
-            <div class="option_field">
-              <span class="checkbox">
-                <input type="checkbox" id="check" />
-                <label for="check">Remember me</label>
-              </span>
-              <a href="#" class="forgot_pw">Forgot password?</a>
-            </div>
-            <button class="button">Login Now</button>
-            <div class="login_signup">
-              Don't have an account? <a href="#" id="signup">Signup</a>
-            </div>
-          </form>
-        </div>
-        <!-- Signup Form -->
-        <div class="form signup_form">
-          <form action="#">
-            <h2>Signup</h2>
-            <div class="input_box">
-              <input type="email" placeholder="Enter your email" required />
-              <i class="uil uil-envelope-alt email"></i>
-            </div>
-            <div class="input_box">
-              <input type="password" placeholder="Create password" required />
-              <i class="uil uil-lock password"></i>
-              <i class="uil uil-eye-slash pw_hide"></i>
-            </div>
-            <div class="input_box">
-              <input type="password" placeholder="Confirm password" required />
-              <i class="uil uil-lock password"></i>
-              <i class="uil uil-eye-slash pw_hide"></i>
-            </div>
-            <button class="button">Signup Now</button>
-            <div class="login_signup">
-              Already have an account? <a href="#" id="login">Login</a>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- Data Table -->
-      <!-- <section>
         <div class="container tableContainer">
           <div id="data-table" class="table-container">
-            <table id="uploaded-data" border="1">
+            <table id="uploaded-data" border="1" style="width: 100%">
               <thead>
                 <tr>
                   <% key_s.forEach((key) => { %>
@@ -244,19 +100,170 @@
                 </tr>
                 <% }) %> <% } else { %>
                 <tr>
-                  <td colspan="100%">No data available.</td>
+                  <td colspan="100%" style="border: none">
+                    No data available.
+                  </td>
                 </tr>
                 <% } %>
               </tbody>
             </table>
           </div>
         </div>
-      </section> -->
-    </section>
+      </div>
+      <div class="page3">
+        <!-- ✅ Data Preprocessing Section -->
+        <div class="data-preprocess">
+          <div class="preprocess-section">
+            <h3>Data Preprocessing</h3>
 
+            <div class="radio-group">
+              <label>
+                <input
+                  type="radio"
+                  name="preprocess"
+                  value="manual"
+                  onclick="toggleManualSection(true)"
+                />
+                <p>
+                  Manual<br /><span class="radio-p"
+                    >You'll be able to choose preprocessing steps.</span
+                  >
+                </p>
+              </label>
+            </div>
+
+            <!-- ✅ Feature Selection Section -->
+            <div id="manual-section" style="display: none; margin-top: 20px">
+              <h4>Select Label and Features</h4>
+
+              <!-- ✅ Label Selection -->
+              <div>
+                <label for="label-select">Label:</label>
+                <select
+                  id="label-select"
+                  onchange="populateFeaturePools()"
+                  required
+                >
+                  <option value="" disabled selected>Select a label</option>
+                </select>
+              </div>
+
+              <!-- ✅ Features Selection -->
+              <div style="display: flex; gap: 20px; margin-top: 20px">
+                <!-- All Features -->
+                <div>
+                  <h5>All Features</h5>
+                  <ul id="all-features-pool" class="feature-pool"></ul>
+                </div>
+
+                <!-- Selected Features -->
+                <div>
+                  <h5>Selected Features</h5>
+                  <ul id="selected-features-pool" class="feature-pool"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page4">
+        <div class="preprocess-options">
+          <h3>Preprocessing Options</h3>
+
+          <!-- ✅ Fill Missing Values -->
+          <label for="fill-null">Fill Missing Values:</label>
+          <select id="fill-null">
+            <option value="1">Geometric Mean</option>
+            <option value="0">Remove Rows</option>
+          </select>
+
+          <!-- ✅ Scale Data -->
+          <label for="scale-data">Scale Data:</label>
+          <select id="scale-data">
+            <option value="1">Standard Scaling</option>
+            <option value="0">No Scaling</option>
+          </select>
+
+          <!-- ✅ PCA -->
+          <label for="apply-pca">Apply PCA:</label>
+          <select id="apply-pca" onchange="togglePCAComponents()">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+
+          <!-- ✅ PCA Components Selection -->
+          <div id="pca-components-div" style="display: none">
+            <label for="n-components">Number of Components:</label>
+            <input type="number" id="n-components" min="1" />
+          </div>
+
+          <!-- ✅ Preprocess Button -->
+          <button id="preprocess-btn" onclick="preprocessData()">
+            Preprocess Data
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login & Signup Forms -->
+    <div class="form_container">
+      <i class="uil uil-times form_close"></i>
+      <!-- Login Form -->
+      <div class="form login_form">
+        <form action="#">
+          <h2>Login</h2>
+          <div class="input_box">
+            <input type="email" placeholder="Enter your email" required />
+            <i class="uil uil-envelope-alt email"></i>
+          </div>
+          <div class="input_box">
+            <input type="password" placeholder="Enter your password" required />
+            <i class="uil uil-lock password"></i>
+            <i class="uil uil-eye-slash pw_hide"></i>
+          </div>
+          <div class="option_field">
+            <span class="checkbox">
+              <input type="checkbox" id="check" />
+              <label for="check">Remember me</label>
+            </span>
+            <a href="#" class="forgot_pw">Forgot password?</a>
+          </div>
+          <button class="button">Login Now</button>
+          <div class="login_signup">
+            Don't have an account? <a href="#" id="signup">Signup</a>
+          </div>
+        </form>
+      </div>
+      <!-- Signup Form -->
+      <div class="form signup_form">
+        <form action="#">
+          <h2>Signup</h2>
+          <div class="input_box">
+            <input type="email" placeholder="Enter your email" required />
+            <i class="uil uil-envelope-alt email"></i>
+          </div>
+          <div class="input_box">
+            <input type="password" placeholder="Create password" required />
+            <i class="uil uil-lock password"></i>
+            <i class="uil uil-eye-slash pw_hide"></i>
+          </div>
+          <div class="input_box">
+            <input type="password" placeholder="Confirm password" required />
+            <i class="uil uil-lock password"></i>
+            <i class="uil uil-eye-slash pw_hide"></i>
+          </div>
+          <button class="button">Signup Now</button>
+          <div class="login_signup">
+            Already have an account? <a href="#" id="login">Login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js"></script>
     <script src="/js/script.js"></script>
-    
   </body>
 </html>
