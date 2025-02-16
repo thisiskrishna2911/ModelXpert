@@ -13,16 +13,23 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const uploadsDir = path.join(__dirname, "uploads");
+const preprocessedDir = path.join(__dirname, "preprocessed"); // Directory for preprocessed data
 
 // ✅ Ensure uploads directory exists
-async function createUploadsDir() {
+async function createDirectories() {
     try {
         await fs.access(uploadsDir);
     } catch (error) {
         await fs.mkdir(uploadsDir);
     }
+
+    try {
+        await fs.access(preprocessedDir);
+    } catch (error) {
+        await fs.mkdir(preprocessedDir);
+    }
 }
-createUploadsDir();
+createDirectories();
 
 // ✅ Configure Multer for file uploads
 const storage = multer.diskStorage({

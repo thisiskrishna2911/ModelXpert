@@ -7,7 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const labelSelect = document.getElementById("label-select");
     const allFeaturesPool = document.getElementById("all-features-pool");
     const selectedFeaturesPool = document.getElementById("selected-features-pool");
+    const preprocessBtn = document.getElementById("preprocess-btn");
+    const trainModelSection = document.getElementById("train-model-section");
 
+    let uploadedFilePath = ""; // Variable to store the uploaded file path
     manualSection.style.display = "none"; // Hide manual section initially
 
 
@@ -107,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         element.addEventListener("mouseenter", function () {
             gsap.to(cursor, {
                 scale: 3, // Increase size
-                backgroundColor: "#fff", // Change background color
+                backgroundColor: "white", // Change background color
                 borderColor: "transparent", // Hide border
                 mixBlendMode: "difference",
                 duration: 0.3
@@ -130,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ✅ File Upload Drag-and-Drop Events
     dropZone.addEventListener("dragover", (e) => {
         e.preventDefault();
         dropZone.classList.add("dragover");
@@ -147,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dropZone.addEventListener("click", () => fileInput.click());
     fileInput.addEventListener("change", (e) => handleFiles(e.target.files));
 
-    // ✅ Handle File Upload
+    // Handle File Upload
     const handleFiles = (files) => {
         if (files.length > 0) {
             const file = files[0];
@@ -162,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // ✅ Upload File and Fetch Data
+    // Upload File and Fetch Data
     const uploadFile = async (file) => {
         const formData = new FormData();
         formData.append("file", file);
@@ -179,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok && data.items) {
                 updateTable(data.items);
                 setupFeatureSelection(data.items);
+                uploadedFilePath = data.filePath; // Store the uploaded file path
             } else {
                 alert(data.message || "Failed to upload or process the file.");
             }
@@ -188,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // ✅ Update Table After Upload
+    // Update Table After Upload
     const updateTable = (items) => {
         if (!fileTable) return;
         fileTable.innerHTML = "";
@@ -219,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // ✅ Setup Feature Selection After Upload
+    // Setup Feature Selection After Upload
     const setupFeatureSelection = (items) => {
         if (!items || items.length === 0) {
             console.error("❌ No items received for feature selection.");
@@ -251,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // ✅ Populate Feature Pools When Label is Selected
+    // Populate Feature Pools When Label is Selected
     function populateFeaturePools() {
         const selectedLabel = labelSelect.value;
         allFeaturesPool.innerHTML = "";
@@ -272,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ✅ Add Feature to Pool
+    // Add Feature to Pool
     function addFeatureToPool(pool, feature, clickable) {
         const li = document.createElement("li");
         li.textContent = feature;
@@ -302,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
         pool.appendChild(li);
     }
 
-    // ✅ Move Feature from All Features to Selected Features
+    // Move Feature from All Features to Selected Features
     function moveToSelectedFeatures(feature) {
         Array.from(allFeaturesPool.children).forEach((li) => {
             if (li.dataset.feature === feature) allFeaturesPool.removeChild(li);
@@ -310,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
         addFeatureToPool(selectedFeaturesPool, feature, false);
     }
 
-    // ✅ Move Feature from Selected Features to All Features
+    // Move Feature from Selected Features to All Features
     function moveToAllFeatures(feature) {
         Array.from(selectedFeaturesPool.children).forEach((li) => {
             if (li.dataset.feature === feature) selectedFeaturesPool.removeChild(li);
@@ -318,38 +321,10 @@ document.addEventListener("DOMContentLoaded", () => {
         addFeatureToPool(allFeaturesPool, feature, true);
     }
 
-    // ✅ Listen for Label Selection Changes
+    // Listen for Label Selection Changes
     labelSelect.addEventListener("change", populateFeaturePools);
-});
 
-
-document.getElementById("train-btn").addEventListener("click", async () => {
-    const modelType = document.getElementById("model-select").value;
-
-    try {
-        const response = await fetch("/train", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ modelType }),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            alert("Model training successful! Check logs for details.");
-            console.log("Model Output:", data.output);
-        } else {
-            alert("Error during training.");
-        }
-    } catch (error) {
-        console.error("Training Error:", error);
-    }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const preprocessBtn = document.getElementById("preprocess-btn");
-    const trainModelSection = document.getElementById("train-model-section");
-
-    // ✅ Show Preprocess Button Only When Features & Label Are Selected
+    // Show Preprocess Button Only When Features & Label Are Selected
     function updatePreprocessButtonVisibility() {
         const label = document.getElementById("label-select").value;
         const selectedFeatures = document.getElementById("selected-features-pool").children;
@@ -357,18 +332,24 @@ document.addEventListener("DOMContentLoaded", () => {
         preprocessBtn.style.display = (label && selectedFeatures.length > 0) ? "block" : "none";
     }
 
-    // ✅ Listen for changes in feature selection
+    // Listen for changes in feature selection
     document.getElementById("label-select").addEventListener("change", updatePreprocessButtonVisibility);
     document.getElementById("selected-features-pool").addEventListener("DOMSubtreeModified", updatePreprocessButtonVisibility);
 
-    // ✅ Preprocess Data
+    // Preprocess Data
     async function preprocessData() {
-        const label = document.getElementById("label-select").value;
-        const selectedFeatures = Array.from(document.getElementById("selected-features-pool").children)
-            .map(li => li.textContent.replace(" ❌", ""));
-        const filePath = "uploads/latest_uploaded.csv";
 
-        if (!label || selectedFeatures.length === 0) {
+        const label = document.getElementById("label-select").value;
+        const selectedFeatures = Array.from(document.getElementById("selected-features-pool").children).map(li => li.textContent.replace(" ❌", ""));
+        const fillNull = document.getElementById("fill-null").value;
+        const scaleData = document.getElementById("scale-data").value;
+        const applyPCA = document.getElementById("apply-pca").value;
+        const nComponents = document.getElementById("n-components").value || "None";
+        // Log the selected label and features for debugging
+        console.log("Selected Label:", label);
+        console.log("Selected Features:", selectedFeatures);
+        console.log("Uploaded File Path:", uploadedFilePath);
+        if (!label || selectedFeatures.length === 0 || !uploadedFilePath) {
             alert("Please select a label and at least one feature before preprocessing.");
             return;
         }
@@ -377,43 +358,21 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("/preprocess", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ filePath, label, selectedFeatures })
+                body: JSON.stringify({ filePath: uploadedFilePath, label, selectedFeatures, fillNull, scaleData, applyPCA, nComponents })
             });
 
             const data = await response.json();
             if (response.ok) {
                 alert("✅ Preprocessing successful! You can now train the model.");
-                trainModelSection.style.display = "block";  // ✅ Show Train Model Section
+                trainModelSection.style.display = "block";  // Show Train Model Section
             } else {
                 alert("❌ Error during preprocessing.");
             }
+
         } catch (error) {
             console.error("Error:", error);
         }
     }
-    async function trainModel() {
-        const modelType = document.getElementById("model-select").value;
 
-        try {
-            const response = await fetch("/train", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ modelType })
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                alert("✅ Model training successful! Check logs for details.");
-                console.log("Model Output:", data.output);
-            } else {
-                alert("❌ Error during training.");
-            }
-        } catch (error) {
-            console.error("Training Error:", error);
-        }
-    }
-    preprocessData();
-    trainModel();
+    preprocessBtn.addEventListener("click", preprocessData);
 });
-
-
