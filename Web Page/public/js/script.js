@@ -14,122 +14,115 @@ document.addEventListener("DOMContentLoaded", () => {
     manualSection.style.display = "none"; // Hide manual section initially
 
 
-    //modelxpert backgroun effect
-    VANTA.NET({
-        el: ".page1",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 700.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        scaleMobile: 1.00,
-        color: 0x4d6cde,
-        backgroundColor: 0x20204
-    })
+    function backgroundeffect() {
+        VANTA.NET({
+            el: ".page1",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 700.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x4d6cde,
+            backgroundColor: 0x20204
+        })
+    }
+    backgroundeffect();
 
-    //Animation
     var tl = gsap.timeline()
 
-    tl.from(".nav_logo, .nav_items .nav_link, .button", {
-        y: -30,
-        opacity: 0,
-        delay: 1,
-        duration: 1.5,
-        stagger: 0.15
-    })
-
-    function breakThetext() {
-        var h1 = document.querySelector(".mx")
-
-        var h1text = h1.textContent
-
-        var splitedtext = h1text.split("");
-        var halfvalue = Math.floor(splitedtext.length / 2)
-
-        var clutter = "";
-
-        splitedtext.forEach(function (elem, idx) {
-            if (idx < halfvalue) {
-                // clutter = clutter + elem
-                clutter += `<span class="a">${elem}</span>`
-            } else {
-                clutter += `<span class="b">${elem}</span>`
-            }
-
-        })
-
-        h1.innerHTML = clutter
+    function page1animation() {
+        tl.from(".nav_logo, .nav_items .nav_link, .button", {
+            y: -30,
+            opacity: 0,
+            delay: 0.5,
+            duration: 1,
+            stagger: 0.15
+        });
+        tl.from(".mx span", {
+            y: 100,
+            opacity: 0,
+            stagger: 0.1,
+            duration: 0.1,
+            delay: -0.5
+        });
     }
 
-    breakThetext();
 
-    gsap.from(".a", {
-        y: 80,
-        opacity: 0,
-        duration: 1,
-        delay: 1,
-        stagger: 0.15,
-    })
+    function cursoreffect() {
+        var page1content = document.querySelector(".page1-content");
+        var cursor = document.querySelector(".cursor");
+        var cursorScaleElements = document.querySelectorAll(".nav_items a,.nav_logo, .button, .mx");
 
-    gsap.from(".b", {
-        y: 80,
-        opacity: 0,
-        duration: 1,
-        delay: 1,
-        stagger: -0.15
-    })
-
-
-
-    var page1content = document.querySelector(".page1-content");
-    var cursor = document.querySelector(".cursor");
-    var cursorScaleElements = document.querySelectorAll(".nav_items a,.nav_logo, .button, .mx");
-
-    // Cursor movement
-    page1content.addEventListener("mousemove", function (dets) {
-        gsap.to(cursor, {
-            x: dets.x,
-            y: dets.y,
-            duration: 0.1,
-            ease: "power2.out"
-        });
-    });
-
-    // Cursor visibility when entering/leaving the page
-    page1content.addEventListener("mouseenter", function () {
-        gsap.to(cursor, { scale: 1, opacity: 1 });
-    });
-
-    page1content.addEventListener("mouseleave", function () {
-        gsap.to(cursor, { scale: 0, opacity: 0 });
-    });
-
-    // Increase cursor size and change color when hovering over elements
-    cursorScaleElements.forEach((element) => {
-        element.addEventListener("mouseenter", function () {
+        // Cursor movement
+        page1content.addEventListener("mousemove", function (dets) {
             gsap.to(cursor, {
-                scale: 3, // Increase size
-                backgroundColor: "white", // Change background color
-                borderColor: "transparent", // Hide border
-                mixBlendMode: "difference",
-                duration: 0.3
+                x: dets.x,
+                y: dets.y,
+                duration: 0.1,
+                ease: "power2.out"
             });
         });
 
-        element.addEventListener("mouseleave", function () {
-            gsap.to(cursor, {
-                scale: 1, // Reset size
-                backgroundColor: "transparent", // Reset background
-                borderColor: "#fff",
-                mixBlendMode: "difference", // Restore border
-                duration: 0.3
+        // Cursor visibility when entering/leaving the page
+        page1content.addEventListener("mouseenter", function () {
+            gsap.to(cursor, { scale: 1, opacity: 1 });
+        });
+
+        page1content.addEventListener("mouseleave", function () {
+            gsap.to(cursor, { scale: 0, opacity: 0 });
+        });
+
+        // Increase cursor size and change color when hovering over elements
+        cursorScaleElements.forEach((element) => {
+            element.addEventListener("mouseenter", function () {
+                gsap.to(cursor, {
+                    scale: 3, // Increase size
+                    backgroundColor: "white", // Change background color
+                    borderColor: "transparent", // Hide border
+                    mixBlendMode: "difference",
+                    duration: 0.3
+                });
+            });
+
+            element.addEventListener("mouseleave", function () {
+                gsap.to(cursor, {
+                    scale: 1, // Reset size
+                    backgroundColor: "transparent", // Reset background
+                    borderColor: "#fff",
+                    mixBlendMode: "difference", // Restore border
+                    duration: 0.3
+                });
             });
         });
-    });
+    }
+    cursoreffect();
 
-
-
+    function loader() {
+        tl.from(".loader h3", {
+            x: 40,
+            opacity: 0,
+            stagger: 0.2,
+            duration: 0.5,
+            delay: 1
+        }, "+=0");
+        tl.to(".loader h3", {
+            x: -40,
+            opacity: 0,
+            stagger: 0.2,
+            duration: 0.5,
+            delay: 0.5
+        });
+        tl.to(".loader", {
+            opacity: 0
+        });
+        page1animation();
+        tl.to(".loader", {
+            display: "none"
+        });
+    }
+    loader();
 
 
 
@@ -329,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const label = document.getElementById("label-select").value;
         const selectedFeatures = document.getElementById("selected-features-pool").children;
 
-        preprocessBtn.style.display = (label && selectedFeatures.length > 0) ? "block" : "none";
+        // preprocessBtn.style.display = (label && selectedFeatures.length > 0) ? "block" : "none";
     }
 
     // Listen for changes in feature selection
