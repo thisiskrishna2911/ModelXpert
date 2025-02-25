@@ -1,5 +1,10 @@
 /* Import Google font - Poppins */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"); */
+
+@font-face {
+  font-family: NeueMachina;
+  src: url(../NeueMachina-Regular_DQCmjH1st.ttf);
+}
 
 /* Keyframes for Glow Effect */
 @keyframes glow {
@@ -37,19 +42,22 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", serif;
+  font-family: NeueMachina;
 }
 html,
 body {
   height: 100%;
   width: 100%;
 }
+::-webkit-scrollbar {
+  display: none;
+}
 .loader {
   width: 100%;
   height: 100%;
   position: fixed;
   z-index: 99;
-  background-color: #0b0217;
+  background-color: black;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -58,11 +66,10 @@ body {
 }
 .loader h3 {
   font-size: 2.3vw;
+  font-family: NeueMachina;
 }
-.page1 {
-  cursor: none;
-}
-.cursor {
+
+/* .cursor {
   height: 2.3vw;
   width: 2.3vw;
   border: 2px solid #3cb1fc;
@@ -72,7 +79,7 @@ body {
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 1000;
-}
+} */
 
 .page1 {
   height: 100vh;
@@ -122,16 +129,17 @@ a {
   height: 100%;
   align-items: center;
   justify-content: space-between;
-  font-size: 20px;
+  font-size: 1.5vw;
   font-weight: 600;
 }
 .nav_logo,
 .nav_link,
 .button {
-  color: #406ad6;
+  color: #446aca;
+  font-family: NeueMachina;
 }
 .nav_logo {
-  font-size: 25px;
+  font-size: 1vh;
 }
 .nav_item {
   column-gap: 40px;
@@ -161,7 +169,7 @@ a {
 .button {
   padding: 6px 24px;
   border: 2px solid #fff;
-  font-size: 20px;
+  font-size: 1.5vw;
   font-weight: 500;
   border-radius: 1.5rem;
   color: #fff;
@@ -174,20 +182,18 @@ a {
 }
 
 .mx {
-  font-size: 12vw;
-  font-weight: 600;
   cursor: default;
   position: relative;
   background: linear-gradient(to right, #0449f8, #66ffff);
   color: transparent;
   -webkit-background-clip: text;
-
-  /* text-shadow: 0 0 60px #0449f8d9; */
 }
-/* .mx span {
-  display: inline-block;
-} */
-
+.mx h1 {
+  font-size: 12vw;
+  font-weight: 600;
+  font-family: NeueMachina;
+  letter-spacing: -0.1;
+}
 .page2 {
   width: 100%;
   height: auto;
@@ -301,6 +307,7 @@ tbody tr:nth-child(odd) {
 .preprocess-section h3 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
+  font-family: NeueMachina;
 }
 .radio-group {
   display: flex;

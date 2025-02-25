@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function page1animation() {
         tl.from(".nav_logo, .nav_items .nav_link, .button", {
-            y: -30,
+            y: 30,
             opacity: 0,
             delay: 0.5,
             duration: 1,
@@ -50,54 +50,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function cursoreffect() {
-        var page1content = document.querySelector(".page1-content");
-        var cursor = document.querySelector(".cursor");
-        var cursorScaleElements = document.querySelectorAll(".nav_items a,.nav_logo, .button, .mx");
+    // function cursoreffect() {
+    //     var page1content = document.querySelector(".page1-content");
+    //     var cursor = document.querySelector(".cursor");
+    //     var cursorScaleElements = document.querySelectorAll(".nav_items a,.nav_logo, .button, .mx");
 
-        // Cursor movement
-        page1content.addEventListener("mousemove", function (dets) {
-            gsap.to(cursor, {
-                x: dets.x,
-                y: dets.y,
-                duration: 0.1,
-                ease: "power2.out"
-            });
-        });
+    //     // Cursor movement
+    //     page1content.addEventListener("mousemove", function (dets) {
+    //         gsap.to(cursor, {
+    //             x: dets.x,
+    //             y: dets.y,
+    //             duration: 0.1,
+    //             ease: "power2.out"
+    //         });
+    //     });
 
-        // Cursor visibility when entering/leaving the page
-        page1content.addEventListener("mouseenter", function () {
-            gsap.to(cursor, { scale: 1, opacity: 1 });
-        });
+    //     // Cursor visibility when entering/leaving the page
+    //     page1content.addEventListener("mouseenter", function () {
+    //         gsap.to(cursor, { scale: 1, opacity: 1 });
+    //     });
 
-        page1content.addEventListener("mouseleave", function () {
-            gsap.to(cursor, { scale: 0, opacity: 0 });
-        });
+    //     page1content.addEventListener("mouseleave", function () {
+    //         gsap.to(cursor, { scale: 0, opacity: 0 });
+    //     });
 
-        // Increase cursor size and change color when hovering over elements
-        cursorScaleElements.forEach((element) => {
-            element.addEventListener("mouseenter", function () {
-                gsap.to(cursor, {
-                    scale: 3, // Increase size
-                    backgroundColor: "white", // Change background color
-                    borderColor: "transparent", // Hide border
-                    mixBlendMode: "difference",
-                    duration: 0.3
-                });
-            });
+    //     // Increase cursor size and change color when hovering over elements
+    //     cursorScaleElements.forEach((element) => {
+    //         element.addEventListener("mouseenter", function () {
+    //             gsap.to(cursor, {
+    //                 scale: 3, // Increase size
+    //                 backgroundColor: "white", // Change background color
+    //                 borderColor: "transparent", // Hide border
+    //                 mixBlendMode: "difference",
+    //                 duration: 0.3
+    //             });
+    //         });
 
-            element.addEventListener("mouseleave", function () {
-                gsap.to(cursor, {
-                    scale: 1, // Reset size
-                    backgroundColor: "transparent", // Reset background
-                    borderColor: "#fff",
-                    mixBlendMode: "difference", // Restore border
-                    duration: 0.3
-                });
-            });
-        });
-    }
-    cursoreffect();
+    //         element.addEventListener("mouseleave", function () {
+    //             gsap.to(cursor, {
+    //                 scale: 1, // Reset size
+    //                 backgroundColor: "transparent", // Reset background
+    //                 borderColor: "#fff",
+    //                 mixBlendMode: "difference", // Restore border
+    //                 duration: 0.3
+    //             });
+    //         });
+    //     });
+    // }
+    // cursoreffect();
 
     function loader() {
         tl.from(".loader h3", {
