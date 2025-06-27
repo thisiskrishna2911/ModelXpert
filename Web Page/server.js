@@ -9,6 +9,8 @@ import { parse } from "csv-parse";
 import xlsx from "xlsx";
 import { spawn } from "child_process";
 
+
+
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -52,6 +54,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.engine("ejs", ejsMate);
 
+app.get("/", function (req, res) {
+    res.render("index");
+})
+
 // ✅ Function to Read CSV Files
 async function readCSV(filePath) {
     try {
@@ -81,9 +87,9 @@ async function readXLSX(filePath) {
 }
 
 // ✅ Serve Home Page
-app.get("/", async (req, res) => {
+app.get("/talk", async (req, res) => {
     try {
-        res.render("index", { title: "ModelXpert File Upload", items: [], key_s: [] });
+        res.render("process", { title: "ModelXpert File Upload", items: [], key_s: [] });
     } catch (error) {
         console.error("Error rendering page:", error);
         res.status(500).send("Error loading page");
@@ -161,6 +167,7 @@ app.post("/preprocess", async (req, res) => {
         }
     });
 });
+
 
 // ✅ Start Server
 const PORT = process.env.PORT || 8010;

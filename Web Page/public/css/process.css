@@ -1,0 +1,385 @@
+@font-face {
+  font-family: SuisseIntl;
+  src: url(../SuisseIntl-Regular.ttf);
+}
+
+/* Keyframes for Glow Effect */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px rgba(64, 106, 214, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(64, 106, 214, 0.6);
+  }
+}
+
+/* Keyframes for Bounce Effect */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Keyframes for Fade-in Effect */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: SuisseIntl;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+.loader {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 99;
+  background-color: black;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+.loader h3 {
+  font-size: 2.3vw;
+  font-family: SuisseIntl;
+}
+
+.page2 {
+  width: 100%;
+  height: auto;
+}
+section {
+  padding: 3rem 2rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+h2 {
+  color: #8f2fd9;
+  margin-bottom: 1rem;
+}
+
+h3, h4 {
+  margin: 1.5rem 0 1rem;
+  color: #8f2fd9;
+}
+
+.head{
+  text-align: left;
+}
+
+#drop-zone {
+  padding: 2rem;
+  border: 2px dashed #c77dff;
+  text-align: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+}
+.fileoption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 3vw 0;
+}
+
+.file-info {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #aaa;
+  border: 1px solid #ddd;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+#file-input {
+  display: none;
+}
+
+/* #myFile {
+    font-weight: 700;
+    font-size: 30px;
+  } */
+
+.fileupl {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heading-datatrain {
+  text-align: center;
+  font-size: 25px;
+}
+#uploaded-data {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table data,
+td {
+  padding: 15px;
+}
+th {
+  padding: 0 30px;
+}
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+.tableContainer table {
+  border: none;
+  
+}
+thead {
+  background-color: black;
+  color: white;
+}
+tbody tr:nth-child(odd) {
+  background-color: #eeeeee;
+}
+
+.page3 {
+  width: 100%;
+  height: auto;
+}
+
+.data-preprocess {
+  margin: 0 10%;
+}
+/* .preprocess-section {
+    margin: 3rem 0;
+  } */
+.preprocess-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-family: SuisseIntl;
+}
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.radio-group label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid rgb(206, 202, 202);
+  border-radius: 5px;
+  padding: 15px;
+}
+.radio-group input {
+  margin-right: 0.5rem;
+}
+.radio-p {
+  color: #406ad6;
+}
+#manual-section {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: none; /* Initially hidden */
+  margin-top: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+#label-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: white;
+  cursor: pointer;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.feature-pool {
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  min-height: 120px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background: #f8f8f8;
+}
+
+.feature-pool li {
+  background: #007bff;
+  color: white;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feature-pool li:hover {
+  background: #0056b3;
+}
+
+.feature-pool li span {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.feature-selection-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.feature-box {
+  width: 45%;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-box h5 {
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.feature-selection-container h5 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.page4 {
+  width: 100%;
+  height: auto;
+}
+
+/* ✅ Preprocessing Options Container */
+.preprocess-options {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+  margin: 20px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Title Styling */
+.preprocess-options h3 {
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* ✅ Labels for Options */
+.preprocess-options label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #444;
+}
+
+/* ✅ Dropdown (Select) Styling */
+.preprocess-options select {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.preprocess-options select:hover {
+  border-color: #007bff;
+}
+
+/* ✅ PCA Components Input Field */
+#pca-components-div {
+  margin-top: 10px;
+}
+
+#pca-components-div input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* ✅ Preprocess Button */
+#preprocess-btn {
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#preprocess-btn:hover {
+  background: #0056b3;
+}

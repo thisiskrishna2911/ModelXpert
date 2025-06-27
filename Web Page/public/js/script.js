@@ -11,24 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const trainModelSection = document.getElementById("train-model-section");
 
     let uploadedFilePath = ""; // Variable to store the uploaded file path
-    manualSection.style.display = "none"; // Hide manual section initially
+    // manualSection.style.display = "none"; // Hide manual section initially
 
-
-    function backgroundeffect() {
-        VANTA.NET({
-            el: ".page1",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 700.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x4d6cde,
-            backgroundColor: 0x20204
-        })
-    }
-    backgroundeffect();
 
     var tl = gsap.timeline()
 
@@ -36,11 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
         tl.from(".nav_logo, .nav_items .nav_link, .button", {
             y: 30,
             opacity: 0,
-            delay: 0.5,
-            duration: 1,
+            duration: 0.5,
             stagger: 0.15
         });
-        tl.from(".mx span", {
+        tl.from(".mx h1 span", {
             y: 100,
             opacity: 0,
             stagger: 0.1,
@@ -48,6 +31,38 @@ document.addEventListener("DOMContentLoaded", () => {
             delay: -0.5
         });
     }
+
+    // Fade-in animation on scroll
+    const cards = document.querySelectorAll('.card');
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    cards.forEach(card => observer.observe(card));
+
+    const elements = document.querySelectorAll('.fade-in');
+
+const observe = new IntersectionObserver((entries, observe) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+elements.forEach(el => observe.observe(el));
+
+
 
 
     // function cursoreffect() {

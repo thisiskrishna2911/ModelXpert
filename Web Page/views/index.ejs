@@ -9,6 +9,13 @@
       href="images/apple-touch-icon.png"
       type="image/x-icon"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+      integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="/css/index.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=New+Amsterdam&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
@@ -16,50 +23,28 @@
     />
   </head>
   <body>
-    <!-- <header class="header">
-      <nav class="nav">
-        <a href="#" class="nav_logo">
-          <img src="/images/logo.png" alt="" />
-        </a>
-        <ul class="nav_items">
-          <li class="nav_item">
-            <a href="#" class="nav_link">Home</a>
-            <a href="#" class="nav_link">Services</a>
-            <a href="#" class="nav_link">About Us</a>
-            <a href="#" class="nav_link">Contact</a>
-            <button class="button" id="form-open">Login</button>
-          </li>
-        </ul>
-      </nav>
-    </header> -->
-
-    <!-- Home -->
-    <div class="loader">
-      <h3>Welcome's</h3>
-      <h3>to</h3>
-      <h3>ModelXpert</h3>
-      <h3>software</h3>
-    </div>
     <div class="home">
-      <!-- <div class="cursor"></div> -->
+      <header class="header">
+        <nav class="nav">
+          <a href="#" class="nav_logo">
+            <img src="/images/logo.png" alt="" />
+          </a>
+          <ul class="nav_items">
+            <li class="nav_item">
+              <a href="#" class="nav_link">Home</a>
+              <a href="#" class="nav_link">Services</a>
+              <a href="#" class="nav_link">About Us</a>
+              <a href="#" class="nav_link">Contact</a>
+              <a href="#" class="nav_link">
+                Logout <i class="ri-logout-box-line"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
       <div class="page1">
         <div class="page1-content">
-          <header class="header">
-            <nav class="nav">
-              <a href="#" class="nav_logo">
-                <img src="/images/logo.png" alt="" />
-              </a>
-              <ul class="nav_items">
-                <li class="nav_item">
-                  <a href="#" class="nav_link">Home</a>
-                  <a href="#" class="nav_link">Services</a>
-                  <a href="#" class="nav_link">About Us</a>
-                  <a href="#" class="nav_link">Contact</a>
-                  <button class="button" id="form-open">Login</button>
-                </li>
-              </ul>
-            </nav>
-          </header>
+          <img class="pimg" src="../images/IMG_9824.PNG" alt="">
           <div class="mx">
             <h1>
               <span>M</span><span>o</span><span>d</span><span>e</span
@@ -69,153 +54,102 @@
           </div>
         </div>
       </div>
-      <div class="page2">
-        <div class="fileoption">
-          <div id="drop-zone">
-            Drag & drop your file here or click to upload.<br />
-            <small>Only CSV and XLSX files are allowed.</small>
-            <form
-              id="upload-form"
-              action="/upload"
-              method="POST"
-              enctype="multipart/form-data"
-            >
-              <input
-                type="file"
-                id="file-input"
-                name="file"
-                multiple
-                size="50"
-                style="display: none"
-              />
-            </form>
-            <div id="file-info" class="file-info"></div>
+
+      <div id="page2">
+        <div class="hero">
+          <div class="content">
+            <h1>ModelXpert</h1>
+            <p>
+              An intuitive no-code platform designed to democratize artificial
+              intelligence by enabling users to train and optimize machine
+              learning models without writing any code.
+            </p>
+            <a href="/talk" class="btn">Get Started</a>
           </div>
         </div>
 
-        <div class="container tableContainer">
-          <div id="data-table" class="table-container">
-            <table id="uploaded-data" border="1" style="width: 100%">
-              <thead>
-                <tr>
-                  <% key_s.forEach((key) => { %>
-                  <th><%= key %></th>
-                  <% }) %>
-                </tr>
-              </thead>
-              <tbody>
-                <% if (items && items.length > 0) { %> <% items.forEach(item =>
-                { %>
-                <tr>
-                  <% key_s.forEach(key => { %>
-                  <td><%= item[key] %></td>
-                  <% }) %>
-                </tr>
-                <% }) %> <% } else { %>
-                <tr>
-                  <td colspan="100%" style="border: none">
-                    No data available.
-                  </td>
-                </tr>
-                <% } %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="page3">
-        <!-- ✅ Data Preprocessing Section -->
-        <div class="data-preprocess">
-          <div class="preprocess-section">
-            <h3>Data Preprocessing</h3>
-
-            <div class="radio-group">
-              <label>
-                <input
-                  type="radio"
-                  name="preprocess"
-                  value="manual"
-                  onclick="toggleManualSection(true)"
-                />
-                <p>
-                  Manual<br /><span class="radio-p"
-                    >You'll be able to choose preprocessing steps.</span
-                  >
-                </p>
-              </label>
+        <section class="process-section" id="process">
+          <h2>Basic Process Flow of ModelXpert</h2>
+          <div class="card-grid">
+            <div class="card fade-in">
+              <h3>Data Input</h3>
+              <p>
+                Upload your datasets in formats like CSV, Excel, JSON or connect
+                to cloud storage.
+              </p>
             </div>
-
-            <!-- ✅ Feature Selection Section -->
-            <div id="manual-section" style="display: none; margin-top: 20px">
-              <h4>Select Label and Features</h4>
-
-              <!-- ✅ Label Selection -->
-              <div>
-                <label for="label-select">Label:</label>
-                <select
-                  id="label-select"
-                  onchange="populateFeaturePools()"
-                  required
-                >
-                  <option value="" disabled selected>Select a label</option>
-                </select>
+            <div class="card fade-in">
+              <h3>Automated Data Preprocessing</h3>
+              <p>
+                Intelligent data cleaning, normalization, and feature
+                engineering without manual intervention.
+              </p>
+            </div>
+            <div class="card fade-in">
+              <h3>Model Selection</h3>
+              <p>
+                Automatically selects the best machine learning models for your
+                data and objectives.
+              </p>
+            </div>
+            <div class="card fade-in">
+              <h3>Training Process</h3>
+              <p>
+                Efficient training with real-time monitoring and performance
+                feedback.
+              </p>
+            </div>
+            <div class="card fade-in">
+              <h3>Hyperparameter Optimization</h3>
+              <p>
+                Advanced algorithms fine-tune parameters for optimal results.
+              </p>
+            </div>
+            <div class="card fade-in">
+              <h3>Evaluation & Deployment</h3>
+              <p>
+                Full evaluation reports and one-click deployment via REST APIs.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div id="page3">
+        <section class="benefits-section" id="benefits">
+          <div class="container">
+            <h2>ModelXpert Key Benefits</h2>
+            <div class="benefit-grid">
+              <div class="benefit-card fade-in">
+                <h3>⚡ Rapid Prototyping</h3>
+                <p>Build, test, and deploy ML models in minutes, not weeks.</p>
               </div>
-
-              <!-- ✅ Features Selection -->
-              <div style="display: flex; gap: 20px; margin-top: 20px">
-                <!-- All Features -->
-                <div>
-                  <h5>All Features</h5>
-                  <ul id="all-features-pool" class="feature-pool"></ul>
-                </div>
-
-                <!-- Selected Features -->
-                <div>
-                  <h5>Selected Features</h5>
-                  <ul id="selected-features-pool" class="feature-pool"></ul>
-                </div>
+              <div class="benefit-card fade-in">
+                <h3>🧠 AI Without Code</h3>
+                <p>No Python? No problem. ModelXpert makes ML accessible to everyone.</p>
+              </div>
+              <div class="benefit-card fade-in">
+                <h3>🌐 Cloud Integration</h3>
+                <p>Connect easily with Google Drive, AWS S3, or your databases.</p>
+              </div>
+              <div class="benefit-card fade-in">
+                <h3>📊 Real-Time Monitoring</h3>
+                <p>Track your models in production with metrics and alerts.</p>
+              </div>
+              <div class="benefit-card fade-in">
+                <h3>🔐 Secure & Scalable</h3>
+                <p>Enterprise-grade infrastructure with versioning and rollback support.</p>
+              </div>
+              <div class="benefit-card fade-in">
+                <h3>📈 Continuous Optimization</h3>
+                <p>Hyperparameter tuning and auto-retraining to keep you ahead.</p>
               </div>
             </div>
           </div>
-        </div>
+        </section>        
       </div>
-      <div class="page4">
-        <div class="preprocess-options">
-          <h3>Preprocessing Options</h3>
-
-          <!-- ✅ Fill Missing Values -->
-          <label for="fill-null">Fill Missing Values:</label>
-          <select id="fill-null">
-            <option value="1">Geometric Mean</option>
-            <option value="0">Remove Rows</option>
-          </select>
-
-          <!-- ✅ Scale Data -->
-          <label for="scale-data">Scale Data:</label>
-          <select id="scale-data">
-            <option value="1">Standard Scaling</option>
-            <option value="0">No Scaling</option>
-          </select>
-
-          <!-- ✅ PCA -->
-          <label for="apply-pca">Apply PCA:</label>
-          <select id="apply-pca" onchange="togglePCAComponents()">
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-          </select>
-
-          <!-- ✅ PCA Components Selection -->
-          <div id="pca-components-div" style="display: none">
-            <label for="n-components">Number of Components:</label>
-            <input type="number" id="n-components" min="1" />
-          </div>
-
-          <!-- ✅ Preprocess Button -->
-          <button id="preprocess-btn" onclick="preprocessData()">
-            Preprocess Data
-          </button>
-        </div>
-      </div>
+      <footer>
+        <p> 2025 ModelXpert — AI for Everyone</p>
+      </footer>
     </div>
 
     <script
@@ -224,8 +158,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js"></script>
     <script src="/js/script.js"></script>
   </body>
 </html>
